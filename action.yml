@@ -14,6 +14,10 @@ inputs:
   upload-chunk-size:
     description: 'The chunk size used to split up large files during upload, in bytes'
     required: false
+  always-save:
+    description: 'Define if we want to alawys save the cached result'
+    default: false
+    required: false
 outputs:
   cache-hit:
     description: 'A boolean value to indicate an exact match was found for the primary key'
