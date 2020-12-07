@@ -25,17 +25,15 @@ async function run(): Promise<void> {
         // Inputs are re-evaluted before the post action, so we want the original key used for restore
         const primaryKey = core.getState(State.CachePrimaryKey);
         const alwaysSave = core.getInput(Inputs.AlwaysSave) === 'true'
-        if (alwaysSave) {
-            utils.logWarning(`Warning, enabled to always safe regardless of cache`);
-        } else if (!primaryKey) {
+        if (!primaryKey) {
             utils.logWarning(`Error retrieving key from state.`);
             return;
         }
 
-        if (utils.isExactKeyMatch(primaryKey, state)) {
-            core.info(
-                `Cache hit occurred on the primary key ${primaryKey}, not saving cache.`
-            );
+        if (alwaysSave) {
+            core.info(`Warning, enabled to always safe regardless of cache`);
+        } else if (utils.isExactKeyMatch(primaryKey, state)) {
+            core.info(`Cache hit occurred on the primary key ${primaryKey}, not saving cache.`);
             return;
         }
 
